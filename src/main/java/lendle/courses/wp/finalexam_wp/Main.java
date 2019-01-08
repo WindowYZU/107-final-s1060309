@@ -5,9 +5,13 @@
  */
 package lendle.courses.wp.finalexam_wp;
 
+import java.awt.BorderLayout;
 import javax.swing.DefaultListModel;
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -106,15 +110,25 @@ public class Main extends javax.swing.JFrame {
         DefaultListModel model = (DefaultListModel) this.jList1.getModel();
         if (model.contains(title)) {
             //Q1: 開啟 message dialog （10%）
-            
+            JOptionPane.showMessageDialog(this,"不可重複","",JOptionPane.ERROR_MESSAGE);
             ////////////////////
             return;
         }
         TaskDB.save(title, "");
         model.addElement(title);
         //Q2: 建立 TaskFrame（等同於 JInternalFrame）
-        //加到 jDesktopPane1 (20%)
-        
+        //加到 jDesktopPane1 (20%)        
+        JFrame frame=new JFrame();
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setSize(500, 500);
+        frame.setLayout(new BorderLayout());
+        JDesktopPane desktopPane=new JDesktopPane();
+        frame.setContentPane(desktopPane);
+        JTaskFrame taskFrame=new JTaskFrame(title, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled);
+        frame.getContentPane().add(desktopPane);
+        taskFrame.setSize(300, 300);
+        taskFrame.setVisible(true);
+        taskFrame.add(jDesktopPane1);
         ///////////////////////////////////////
     }//GEN-LAST:event_buttonNewActionPerformed
 
@@ -133,6 +147,15 @@ public class Main extends javax.swing.JFrame {
             //Q3: 建立 TaskFrame（等同於 JInternalFrame）
             //設定 noteTitle, noteContent
             //加到 jDesktopPane1 (20%)
+            
+            JTaskFrame jTaskFrame=new JTaskFrame();
+            frame.add(jTaskFrame);
+            jTaskFrame.setSize(300,300);
+            jTaskFrame.setVisible(true);
+            jTaskFrame.setMaximizable(true);
+            jTaskFrame.setIconifiable(true);
+            jTaskFrame.setResizable(true);
+            jTaskFrame.setClosable(true);
             
             //////////////////////////////////////////
         }
